@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./alignment.css" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="home"><a href="/" class="home-anchor">Bizzle</a></div>
+      <div class="spacer"></div>
+      <audio id="audio" class="audio" src="flavor/flavor.mp3" controls></audio>
+      <div class="spacer"></div>
+    </div>
+    <div id="transcript" class="transcript"></div>
+    <script src="/target/main.js"></script>
+    <script>
+      require(14)(document.getElementById('audio'), document.getElementById('transcript'))
+    </script>
+  </body>
+</html>

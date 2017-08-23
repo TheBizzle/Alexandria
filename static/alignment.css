@@ -1,0 +1,70 @@
+/* Adapted from Gentle - https://github.com/lowerquality/gentle/blob/da7713e9d9a416c9079e0f6798043dbdd1083d9b/www/view_alignment.html#L4-L120 */
+
+.audio {
+  flex-grow: 1;
+  max-width: 2000px;
+}
+
+.active {
+  background-color: yellow;
+}
+
+.home {
+  background:     #666;
+  font-size:      30px;
+  font-weight:    lighter;
+  height:         100%;
+  padding:        0 7px;
+  text-transform: lowercase;
+}
+
+.home:hover {
+  background: #555;
+}
+
+.home-anchor {
+  color:           white;
+  font-family:     Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+.spacer {
+  height: 40px;
+  width:  8px;
+}
+
+.success {
+  color: black;
+}
+
+.success:hover {
+  cursor:           pointer;
+  background-color: skyblue;
+}
+
+.success:active {
+  color: yellow;
+}
+
+.topbar {
+  align-items:      center;
+  background-color: #999;
+  box-shadow:       0px 0px 5px 0px rgba(0,0,0,0.5);
+  display:          flex;
+  flex-direction:   row;
+  height:           50px;
+  left:             0;
+  line-height:      50px;
+  position:         fixed;
+  top:              0;
+  width:            100%;
+}
+
+.transcript {
+  color:         #999;
+  font-family:   "Open Sans", Arial, sans-serif;
+  font-size:     24px;
+  margin:        70px 15px 5em 15px;
+  max-width:     600px;
+  white-space:   pre-wrap;
+}
