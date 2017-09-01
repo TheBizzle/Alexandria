@@ -102,16 +102,11 @@ render = (audioElem, transcriptElem, { words = [], transcript }) ->
 
   return
 
-# (String, (String) => Unit) => Unit
-get = (url, onSuccess) ->
-  xhr = new XMLHttpRequest
-  xhr.open('GET', url, true)
-  xhr.onload =
-    ->
-      onSuccess(@responseText)
-      return
-  xhr.send()
-  return
+makeFormData = (parameters) ->
+  formData = new FormData
+  for k, v of parameters
+    formData.set(k, v)
+  formData
 
 # (DOMElement, DOMElement) => Unit
 module.exports = (audioElem, transcriptElem) ->
@@ -126,6 +121,14 @@ module.exports = (audioElem, transcriptElem) ->
           audioElem.pause()
     return
 
-  get('/static/flavor/flavor.json', (x) -> render(audioElem, transcriptElem, JSON.parse(x)))
+  makeRequest = (x) -> fetch(new Request(x)).then((y) -> y.blob())
+  Promise.all(['/static/flavor/flavor.mp3', '/static/flavor/flavor.txt'].map(makeRequest)).then(
+    ([audio, transcript]) ->
+      fetch('http://localhost:8765/transcriptions?async=false', { method: "POST", body: makeFormData({ audio, transcript }) }).then(
+        (data) -> data.json()
+      ).then(
+        (data) -> render(audioElem, transcriptElem, data)
+      )
+  )
 
   return
