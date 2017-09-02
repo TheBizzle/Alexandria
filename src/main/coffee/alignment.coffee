@@ -102,12 +102,6 @@ render = (audioElem, transcriptElem, { words = [], transcript }) ->
 
   return
 
-makeFormData = (parameters) ->
-  formData = new FormData
-  for k, v of parameters
-    formData.set(k, v)
-  formData
-
 # (DOMElement, DOMElement) => Unit
 module.exports = (audioElem, transcriptElem) ->
 
@@ -120,6 +114,12 @@ module.exports = (audioElem, transcriptElem) ->
         else
           audioElem.pause()
     return
+
+  makeFormData = (parameters) ->
+    formData = new FormData
+    for k, v of parameters
+      formData.set(k, v)
+    formData
 
   makeRequest = (x) -> fetch(new Request(x)).then((y) -> y.blob())
   Promise.all(['/static/flavor/flavor.mp3', '/static/flavor/flavor.txt'].map(makeRequest)).then(
