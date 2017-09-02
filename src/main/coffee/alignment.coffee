@@ -41,8 +41,7 @@ highlightWord = (getCurrentWord, makeActive, highlightedElem, isPaused) -> ->
     else
       map(makeActive)(nextElem)
 
-  if not isPaused()
-    window.requestAnimationFrame(highlightWord(getCurrentWord, makeActive, newHighlightedElem, isPaused))
+  window.requestAnimationFrame(highlightWord(getCurrentWord, makeActive, newHighlightedElem, isPaused))
 
   return
 
