@@ -6,7 +6,7 @@
 }
 
 .active {
-  background-color: yellow;
+  text-decoration: underline solid orange;
 }
 
 .home {
@@ -38,12 +38,12 @@
 }
 
 .success:hover {
-  cursor:           pointer;
-  background-color: skyblue;
+  cursor:          pointer;
+  text-decoration: underline solid skyblue;
 }
 
 .success:active {
-  color: yellow;
+  color: orange;
 }
 
 .topbar {
