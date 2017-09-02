@@ -94,6 +94,7 @@ render = (audioElem, transcriptElem, { words = [], transcript }) ->
 
     , [timingData, 0])
 
+  transcriptElem.classList.remove('prealignment')
   transcriptElem.appendChild(document.createTextNode(transcript.slice(finalOffset, transcript.length)))
 
   audioElem.addEventListener('playing', ->
@@ -121,14 +122,16 @@ module.exports = (audioElem, transcriptElem) ->
       formData.set(k, v)
     formData
 
-  makeRequest = (x) -> fetch(new Request(x)).then((y) -> y.blob())
-  Promise.all(['/static/flavor/flavor.mp3', '/static/flavor/flavor.txt'].map(makeRequest)).then(
-    ([audio, transcript]) ->
-      fetch('http://localhost:8765/transcriptions?async=false', { method: "POST", body: makeFormData({ audio, transcript }) }).then(
-        (data) -> data.json()
-      ).then(
-        (data) -> render(audioElem, transcriptElem, data)
-      )
+  tURL = 'http://localhost:8765/transcriptions?async=false'
+
+  fetch(new Request(audioElem.src)).then(
+    (audioResponse) -> audioResponse.blob()
+  ).then(
+    (audio) -> fetch(tURL, { method: "POST", body: makeFormData({ audio, transcript: transcriptElem.innerText }) })
+  ).then(
+    (data) -> data.json()
+  ).then(
+    (json) -> render(audioElem, transcriptElem, json)
   )
 
   return
